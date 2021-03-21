@@ -4,16 +4,16 @@ use crate::account::Account;
 use crate::transaction::Transaction;
 
 pub struct PaymentProcessor {
-    accounts: HashMap<u16, Account>
+    accounts: HashMap<u16, Account>,
 }
 
 impl PaymentProcessor {
     pub fn new() -> PaymentProcessor {
         PaymentProcessor {
-            accounts: HashMap::new()
+            accounts: HashMap::new(),
         }
     }
-    
+
     pub fn process(&mut self, transaction: Transaction) {
         match self.accounts.get_mut(&transaction.client_id) {
             Some(account) => match account.handle(transaction) {
@@ -34,14 +34,7 @@ impl PaymentProcessor {
         };
     }
 
-    pub fn print_accounts(&self) {
-        for (_, account) in &self.accounts {
-            println!("{}", account);
-        }
-    }
-
     pub fn get_accounts(&self) -> &HashMap<u16, Account> {
         &self.accounts
     }
 }
-
